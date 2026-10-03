@@ -170,6 +170,8 @@ Never commit API keys or tokens to the repository.
 
 Sample run of `npm run test:ai` against the local demo AI Search service — **3/3 test cases passed, 6/6 assertions passed**:
 
+![Promptfoo evaluation report](docs/images/promptfoo-report.png)
+
 | Question | Result | Output (truncated) |
 |---|---|---|
 | What is the parental leave policy? | ✅ PASS | Employees are eligible for parental leave according to the company leave policy. The exact entitlement depends on the applicable employee category and location... |
