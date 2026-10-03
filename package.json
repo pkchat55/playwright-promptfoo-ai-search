@@ -1,0 +1,20 @@
+{
+  "name": "playwright-promptfoo-ai-search",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright TypeScript UI framework with Promptfoo AI Search evaluation",
+  "scripts": {
+    "start": "node app/server.js",
+    "test:ui": "playwright test",
+    "test:ai": "promptfoo eval -c promptfooconfig.yaml -o reports/promptfoo-results.json",
+    "test:all": "bash scripts/run-all.sh",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "promptfoo": "latest",
+    "typescript": "latest",
+    "tsx": "latest",
+    "dotenv": "latest"
+  }
+}

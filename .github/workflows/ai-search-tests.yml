@@ -1,0 +1,64 @@
+name: AI Search Automation
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  playwright-promptfoo:
+    name: Playwright + Promptfoo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright UI and API tests
+        run: npm run test:ui
+        env:
+          CI: true
+          BASE_URL: http://127.0.0.1:3000
+
+      - name: Run Promptfoo AI evaluation
+        run: npm run test:ai
+        env:
+          CI: true
+          BASE_URL: http://127.0.0.1:3000
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload test result files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: reports/
+          if-no-files-found: ignore
+          retention-days: 14

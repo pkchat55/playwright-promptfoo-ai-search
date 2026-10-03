@@ -1,0 +1,13 @@
+description: AI Search evaluation with Playwright and Promptfoo
+
+prompts:
+  - file://promptfoo/prompts/search_prompt.txt
+
+providers:
+  - id: file://promptfoo/providers/ai-search-provider.js
+
+tests: file://promptfoo/datasets/search_tests.yaml
+
+defaultTest:
+  options:
+    transformVars: "vars"
