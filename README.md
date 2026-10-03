@@ -166,6 +166,24 @@ env:
 
 Never commit API keys or tokens to the repository.
 
+## Latest Promptfoo evaluation report
+
+Sample run of `npm run test:ai` against the local demo AI Search service — **3/3 test cases passed, 6/6 assertions passed**:
+
+| Question | Result | Output (truncated) |
+|---|---|---|
+| What is the parental leave policy? | ✅ PASS | Employees are eligible for parental leave according to the company leave policy. The exact entitlement depends on the applicable employee category and location... |
+| How many vacation days do employees receive? | ✅ PASS | Employees receive annual vacation leave according to their applicable employment policy. The exact number of days can vary by employee category and location. |
+| What is the Mars policy for teleportation? | ✅ PASS | I could not find a reliable answer in the available knowledge base. Please contact support or provide more context. |
+
+The third case is a deliberate out-of-scope/unknown question — the assertion verifies the model **refuses gracefully instead of hallucinating**, which is one of the core AI-quality checks this framework enforces.
+
+Full machine-readable results are written to `reports/promptfoo-results.json` on every run (gitignored — regenerate locally with `npm run test:ai`), and can be explored interactively with:
+
+```bash
+npx promptfoo view
+```
+
 ## Design principle
 
 **Playwright verifies the application works. Promptfoo verifies the AI output is acceptable.** They are complementary, not interchangeable — a green Playwright suite with a hallucinating model is still a production incident, and a great Promptfoo score on a broken UI is still a shipped bug.
